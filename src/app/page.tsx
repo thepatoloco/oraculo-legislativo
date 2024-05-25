@@ -19,8 +19,10 @@ export default function Home() {
           </h1>
         </div>
 
-        <div className="flex">
-          <CardHome title="Entender el Senado" message="Informarte mediante el asistente sobre las más recientes iniciativas."/>
+        <div className="flex justify-evenly">
+          <CardHome title="Entender el Senado" message="Informarte mediante el asistente sobre las más recientes iniciativas." icon="question"/>
+          <CardHome title="Supervisar actividades" message="Enterate sobre las últimas actividades del Senado." icon="alert"/>
+          <CardHome title="Proponer cambios" message="Como ciudadano tenemos derecho a proponer cambios." icon="idea"/>
 
         </div>
       </div>
