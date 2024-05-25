@@ -21,7 +21,7 @@
   font-size: 45px;
   font-weight: 600;
   text-align: center;
-  margin: 60px 0px;
+  margin: 80px 0px;
 }
 
 .title {
@@ -29,7 +29,7 @@
   color: var(--textWhite);
   font-weight: bolder;
   text-align: center;
-  text-shadow: 1cm;
+  background-color: #4b34269e;
 }
 
 
