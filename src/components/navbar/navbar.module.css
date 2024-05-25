@@ -6,8 +6,8 @@
   background-color: var(--colorStrong);
 }
 
-.logo {
-  font-style: 30px;
-  font-weight: bold;
-  padding-left: 25px;
+.imgContainer {
+  position: relative;
+  width: 250px;
+  height: 100%;
 }
