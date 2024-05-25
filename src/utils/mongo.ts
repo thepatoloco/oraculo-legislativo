@@ -1,55 +1,8 @@
-import mongoose, { Mongoose } from "mongoose";
+import { MongoClient } from "mongodb";
 
-declare global {
-  namespace NodeJS {
-    interface Global {
-      mongoose: {
-        conn: Mongoose | null;
-        promise: Promise<Mongoose> | null;
-      };
-    }
-  }
+export async function getMongoDb() {
+  const client = new MongoClient(process.env.DATABASE_URL!);
+  await client.connect();
+  const db = client.db("Cluster0");
+  return db;
 }
-
-// Esto es necesario para evitar múltiples instancias en modo de desarrollo
-const globalAny: any = global;
-
-globalAny.mongoose = globalAny.mongoose || {
-  conn: null,
-  promise: null,
-};
-
-export async function mongoConnect(): Promise<Mongoose> {
-  if (globalAny.mongoose.conn) {
-    console.log("Connected from previous");
-    return globalAny.mongoose.conn;
-  } else {
-    const conString = process.env.DATABASE_URL;
-
-    if (!conString) {
-      throw new Error("MongoDB connection string is not defined in environment variables");
-    }
-
-    const promise = mongoose.connect(conString, {
-      autoIndex: true,
-    }).then((mongoose) => {
-      console.log("Newly connected");
-      return mongoose;
-    });
-
-    globalAny.mongoose = {
-      conn: await promise,
-      promise,
-    };
-
-    return await promise;
-  }
-}
-
-export const mongoDisconnect = (): void => {
-  if (!globalAny.mongoose.conn) {
-    return;
-  }
-  globalAny.mongoose.conn = null;
-  mongoose.disconnect();
-};
