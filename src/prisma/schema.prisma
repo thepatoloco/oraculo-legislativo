@@ -17,6 +17,8 @@ datasource db {
 model Block {
   hash String @id @map("_id") @db.ObjectId
   data Json
+
+  @@map("blocks")
 }
 
 model Initiative {
@@ -27,6 +29,9 @@ model Initiative {
   file_url String
 
   messages Message[]
+  embeddings InitiativeEmbedding[]
+
+  @@map("initiatives")
 }
 
 model Message {
@@ -36,4 +41,17 @@ model Message {
   initiative_id String @db.ObjectId
 
   initiative Initiative @relation(fields: [initiative_id], references: [id])
+
+  @@map("messages")
+}
+
+model InitiativeEmbedding {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  content String
+  plot_embedding Float[]
+  initiative_id String @db.ObjectId
+
+  initiative Initiative @relation(fields: [initiative_id], references: [id])
+
+  @@map("initiative_embeddings")
 }
