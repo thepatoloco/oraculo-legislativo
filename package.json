@@ -9,17 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^0.0.14",
     "@nextui-org/react": "^2.3.6",
     "@prisma/client": "^5.14.0",
-    "framer-motion": "^11.2.6",
-    "next": "14.2.3",
-    "@ai-sdk/openai": "^0.0.14",
+    "@tabler/icons-react": "^3.5.0",
     "ai": "^3.1.14",
+    "framer-motion": "^11.2.6",
     "llm-chunk": "^0.0.1",
+    "next": "14.2.3",
     "pdf-parse": "^1.1.1",
     "react": "^18",
-    "zod": "^3.23.8",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",
