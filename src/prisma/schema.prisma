@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+
+model Block {
+  hash String @id @map("_id") @db.ObjectId
+  data Json
+}
+
+model Initiative {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String
+  party String
+  file_url String
+
+  messages Message[]
+}
+
+model Message {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  owner String
+  content String
+  initiative_id String @db.ObjectId
+
+  initiative Initiative @relation(fields: [initiative_id], references: [id])
+}
