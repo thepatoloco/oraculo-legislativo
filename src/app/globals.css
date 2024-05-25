@@ -35,9 +35,3 @@ a {
   flex-direction: column;
   margin: 0;
 }
-
-.footerContainer {
-  display: flex;
-  flex-direction: column;
-  margin-top: auto;
-}
