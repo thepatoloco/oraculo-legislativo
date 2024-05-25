@@ -4,15 +4,11 @@ import NavLink from './navLink/navLink'
 
 const links = [
   {
-    title: "Home",
-    path: "/"
-  },
-  {
-    title: "Explorer",
+    title: "Iniciativas gubernamentales",
     path: "/explorer"
   },
   {
-    title: "Blockchain",
+    title: "Actividad senado",
     path: "/blockchain"
   },
 ]
