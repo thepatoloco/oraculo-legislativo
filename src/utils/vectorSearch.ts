@@ -19,7 +19,9 @@ export async function vectorSearch(content: string, initiative: string): Promise
                 "numCandidates": 150, 
                 "limit": 10,
                 "filter": {
-                    "initiative_id": initiative
+                    "initiative_id": {
+                        "$eq": initiative
+                    }
                 }
             }
         }
