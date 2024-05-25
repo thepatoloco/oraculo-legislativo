@@ -4,6 +4,9 @@ import { z } from "zod";
 // import * as pdf from "pdf-parse";
 import pdf from "pdf-parse/lib/pdf-parse";
 import { chunk } from "llm-chunk";
+import { db } from "@/utils/db";
+import { embed } from "ai";
+import { openai } from "@ai-sdk/openai";
 
 
 type PostRequest = {
@@ -28,9 +31,8 @@ export async function POST(request: NextRequest) {
     if (!requestResult.success) return new Response(JSON.stringify({ message: 'Could not parse request.', error: requestResult.error }), { status: 400 });
     const requestData = requestResult.result;
 
-    const response = await fetch(requestData.file_url);
-    const pdfData = await pdf(await response.arrayBuffer() as Buffer);
-
+    const fileResponse = await fetch(requestData.file_url);
+    const pdfData = await pdf(await fileResponse.arrayBuffer() as Buffer);
     const pdfChunks = chunk(pdfData.text, {
         splitter: "sentence",
         minLength: 150,
@@ -38,5 +40,24 @@ export async function POST(request: NextRequest) {
         overlap: 15
     });
 
-    return NextResponse.json({ message: "Success" }, { status: 200 });
+    const initiative = await db.initiative.create({
+        data: {
+            ...requestData
+        }
+    });
+    for (const pdfChk of pdfChunks) {
+        const { embedding } = await embed({
+            model: openai.embedding("text-embedding-3-small"),
+            value: pdfChk
+        });
+        await db.initiativeEmbedding.create({
+            data: {
+                plot_embedding: embedding,
+                content: pdfChk,
+                initiative_id: initiative.id
+            }
+        })
+    }
+
+    return NextResponse.json({ message: "Initiative was created succesfully!", initiative }, { status: 200 });
 }
