@@ -1,6 +1,7 @@
 import { openai } from "@ai-sdk/openai";
 import { embed } from "ai";
 import { getMongoDb } from "./mongo";
+import { ObjectId } from "mongodb";
 
 export async function vectorSearch(content: string, initiative: string): Promise<string[]> {
     const { embedding } = await embed({
@@ -12,16 +13,14 @@ export async function vectorSearch(content: string, initiative: string): Promise
     const collection = mongo.collection("initiative_embeddings");
     const result = collection.aggregate([
         {
-            "$vectorSearch": {
-                "index": "vector_index",
-                "path": "plot_embedding",
-                "queryVector": embedding,
-                "numCandidates": 150, 
-                "limit": 10,
-                "filter": {
-                    "initiative_id": {
-                        "$eq": initiative
-                    }
+            $vectorSearch: {
+                index: "vector_index",
+                path: "plot_embedding",
+                queryVector: embedding,
+                numCandidates: 150, 
+                limit: 10,
+                filter: {
+                    initiative_id: new ObjectId(initiative)
                 }
             }
         }
