@@ -1,9 +1,9 @@
 import React from 'react'
 
-const SingleInitiativePage = () => {
+const ChatPage = () => {
   return (
     <div>SingleInitiativePage</div>
   )
 }
 
-export default SingleInitiativePage;
+export default ChatPage;

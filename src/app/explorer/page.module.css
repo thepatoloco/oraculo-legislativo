@@ -1,3 +1,6 @@
 .title {
   color: var(--textBrown);
+  font-size: 40px;
+  font-weight: 600;
+  padding: 40px 0px;
 }
