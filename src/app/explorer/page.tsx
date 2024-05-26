@@ -1,53 +1,63 @@
 import React from 'react'
 import styles from './page.module.css'
 import CardExplorer from '@/components/cardExplorer/CardExplorer'
+import { db } from '@/utils/db'
 
 const iniciativas = [
   {
-    title: "prueba 1",
+    id: "not found",
+    title: "Hello world, this is a weird test",
     description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    political_party: "test",
+    party: "PRI",
     date: '13/03/2024'
   },
   {
+    id: "not found",
     title: "prueba 2",
     description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    political_party: "test",
+    party: "PAN",
     date: '13/03/2024'
   },
   {
+    id: "not found",
     title: "prueba 3",
     description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    political_party: "test",
+    party: "PRD",
     date: '13/03/2024'
   },
   {
+    id: "not found",
     title: "prueba 4",
     description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    political_party: "test",
+    party: "PVEM",
     date: '13/03/2024'
   },
   {
+    id: "not found",
     title: "prueba 1",
     description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    political_party: "test",
+    party: "MC",
     date: '13/03/2024'
   },
   {
+    id: "not found",
     title: "prueba 2",
     description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    political_party: "test",
+    party: "PT",
     date: '13/03/2024'
   },
   {
+    id: "not found",
     title: "prueba 3",
     description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    political_party: "test",
+    party: "Morena",
     date: '13/03/2024'
   },
 ]
 
-const ExplorerPage = () => {
+const ExplorerPage = async () => {
+  const initiatives = await db.initiative.findMany();
+
   return (
     <>
       <div className='flex flex-col items-center'>
@@ -56,13 +66,13 @@ const ExplorerPage = () => {
         </h1>
         <div className='flex justify-center'>
           <div className="flex flex-wrap justify-start gap-4 w-3/4">
-            {iniciativas.map((iniciativa, index) => (
+            {initiatives.map((iniciativa, index) => (
               <CardExplorer
                 key={index}
+                id={iniciativa.id}
                 title={iniciativa.title}
                 description={iniciativa.description}
-                political_party={iniciativa.political_party}
-                date={iniciativa.date}
+                political_party={iniciativa.party}
               />
             ))}
           </div>
