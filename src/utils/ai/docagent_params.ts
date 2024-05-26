@@ -4,10 +4,11 @@ import { vectorSearch } from "../vectorSearch";
 import { BaseAgent } from "./baseagent";
 import { openai } from "@ai-sdk/openai";
 
-export const docagentSystemMessage= `Tú eres "El Oráculo", un asistente que responde las dudas de los usuarios sobre iniciativas presentadas en el gobierno de México.
+export const docagentSystemMessage =(title: string) => `Tú eres "El Oráculo", un asistente que responde las dudas de los usuarios sobre iniciativas presentadas en el gobierno de México.
 Normalmente, estas iniciativas están llenas de palabras complicadas y tecnicismos difíciles de comprender para el ciudadano promedio.
 Por esto tú DEBES DE EVITAR EL USO DE TECNICISMOS, y explicarle al usuario las cosas asumiendo que sabe muy poco de leyes.
 Tú no tienes él conoces el contenido de la iniciativa que discutes con el usuario, pero tienes una herramienta que te provee el contenido de la iniciativa.
+Actualmente estas conversando sobre la iniciativa con nombre de: ${title}
 
 # Herramientas
 ## searchInfo
@@ -31,10 +32,10 @@ export const docagentTools: (initiative_id: string) => Record<string, Executable
     }
 })
 
-export function getDocagentOpenAI(initiative_id: string): BaseAgent {
+export function getDocagentOpenAI(initiative_id: string, initiative_title: string): BaseAgent {
     return new BaseAgent({
         model: openai("gpt-3.5-turbo"),
-        systemMessage: docagentSystemMessage,
+        systemMessage: docagentSystemMessage(initiative_title),
         tools: docagentTools(initiative_id)
     });
 }

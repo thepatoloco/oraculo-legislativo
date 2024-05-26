@@ -7,7 +7,7 @@ interface ReceiverMessageProps {
 const ReceiverMessage = ({ message }: ReceiverMessageProps) => {
   return (
     <div className='text-left mx-3'>
-      <div className='inline-block p-3 bg-[#E7DED9] rounded-xl'>
+      <div className='inline-block p-3 bg-[#E7DED9] rounded-xl text-[#564B47]'>
         {message}
       </div>
     </div>
