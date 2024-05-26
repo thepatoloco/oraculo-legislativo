@@ -8,7 +8,7 @@ const links = [
     path: "/explorer"
   },
   {
-    title: "Actividad senado",
+    title: "Actividad Senado",
     path: "/blockchain"
   },
 ]
