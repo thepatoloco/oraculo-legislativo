@@ -2,6 +2,8 @@ import React from 'react'
 import styles from './page.module.css'
 import CardBlockChain from '@/components/cardBlockChain/CardBlockChain'
 import { Container } from 'postcss'
+import { IconArrowLeft } from '@tabler/icons-react';
+import { IconArrowRight } from '@tabler/icons-react';
 
 
 const block = [
@@ -63,8 +65,14 @@ const BlockchainPage = () => {
         Actividad del Senado
       </h1>
       <div className='flex justify-between px-8'>
-        <p className="text-black">Mas antiüos</p>
-        <p className="text-black">Mas recientes</p>
+        <p className="text-black flex">
+          <IconArrowLeft stroke={2} />
+          Más antigüos
+        </p>
+        <p className="text-black flex">
+          Más recientes
+          <IconArrowRight stroke={2} />
+        </p>
       </div>
       <div className='flex flex-col items-start overflow-x-scroll p-8' dir='rtl'>
         <div className={styles.cardContainer}>

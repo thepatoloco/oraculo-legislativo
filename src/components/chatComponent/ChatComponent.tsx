@@ -49,7 +49,7 @@ const ChatComponent = ({ id }: ChatComponentProps) => {
 
   return (
     <>
-      <div className='w-[700px] mx-11 border border-slate-800 rounded-lg'> 
+      <div className='w-[700px] mx-11 border border-slate-800 rounded-lg mt-4'> 
 
         <div className='border-b-1 border-[#CBB6A5] h-12 flex items-center rounded-t-lg mb-1'>
           <h2 className='pl-8 text-black'>
