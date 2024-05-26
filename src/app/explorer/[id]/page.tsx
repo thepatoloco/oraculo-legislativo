@@ -18,8 +18,14 @@ const ChatPage = async ({ params }: ChatPageProps) => {
         <h1 className='text-black text-center text-2xl mt-4'> 
           Conversación sobre la iniciativa:
         </h1>
-        <h2 className='text-black text-center text-md mb-4'>{ initiative.title }</h2>
-        <ChatComponent id={initiative.id}/>
+        <h2 className='text-black text-center text-md mb-4 px-2'>{ initiative.title }</h2>
+        <div className="flex justify-center items-stretch gap-4 w-full">
+          <iframe
+            src={initiative.file_url}
+            className="w-96 rounded border border-slate-800"
+          />
+          <ChatComponent id={initiative.id}/>
+        </div>
       </div>
     </>
     

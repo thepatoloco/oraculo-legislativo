@@ -49,7 +49,7 @@ const ChatComponent = ({ id }: ChatComponentProps) => {
 
   return (
     <>
-      <div className='w-[700px] mx-11 border border-slate-800 rounded-lg mt-6'> 
+      <div className='w-[700px] border border-slate-800 rounded-lg'> 
 
         <div className='border-b-1 border-[#CBB6A5] h-12 flex items-center rounded-t-lg mb-1'>
           <h2 className='pl-8 text-black'>
@@ -58,7 +58,7 @@ const ChatComponent = ({ id }: ChatComponentProps) => {
         </div>
 
         <div className='px-2'>
-          <div className='h-64 overflow-y-scroll mb-1 flex flex-col gap-3' ref={scrollRef}>
+          <div className='h-72 overflow-y-scroll mb-1 flex flex-col gap-3' ref={scrollRef}>
             {messages.map((msg, index) => {
               switch (msg.role) {
                 case "user":

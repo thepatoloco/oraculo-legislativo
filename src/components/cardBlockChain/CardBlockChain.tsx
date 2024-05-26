@@ -9,7 +9,7 @@ interface CardBlockChain {
 
 const CardBlockChain = ({ hash, block_data }: CardBlockChain) => {
   return (
-    <Card className='w-64 h-96 mt-10'>
+    <Card className='w-72 h-96 mt-10'>
       <CardHeader className='flex justify-center'>
         <strong><p>{`${hash.substring(0, 6)}...${hash.substring(hash.length - 6, hash.length)}`}</p></strong>
       </CardHeader>
@@ -17,7 +17,7 @@ const CardBlockChain = ({ hash, block_data }: CardBlockChain) => {
       <CardBody className='overflow-hidden text-start justify-evenly py-8 flex items-start'>
         {block_data.type === "initiative" ? (
           <>
-            <p className='break-normal'><strong>Doc:</strong> <a href={block_data.file_url}>{block_data.file_url}</a></p>
+            <p className='break-normal'><strong>Doc:</strong> <a href={block_data.file_url} target="_blank" className="text-blue-500 hover:underline">{block_data.file_url}</a></p>
             <br />
             <p style={{ wordBreak: 'break-all' }}><strong>Hash:</strong> {block_data.file_hash}</p>
             <br />
@@ -27,9 +27,11 @@ const CardBlockChain = ({ hash, block_data }: CardBlockChain) => {
           </> 
         ) : (
           <>
-            <p className='break-normal'><strong>Content:</strong> {(new TextEncoder().encode(block_data.content)).length}</p>
+            <p className='break-normal'><strong>Contenido:</strong> <a className="text-blue-500 hover:underline">{(new TextEncoder().encode(block_data.content)).length} Bytes</a></p>
             <br />
             <p style={{ wordBreak: 'break-all' }}><strong>Hash:</strong> {block_data.content_hash}</p>
+            <br />
+            <p style={{ wordBreak: 'break-all' }}><strong>Archivo:</strong> {block_data.file_hash}</p>
             <br />
             <p className='break-normal'><strong>Fecha:</strong> {(new Date(block_data.date)).toLocaleDateString('es-ES')}</p>
             <br />
