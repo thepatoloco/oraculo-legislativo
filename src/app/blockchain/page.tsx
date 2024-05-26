@@ -59,11 +59,10 @@ const block = [
 const BlockchainPage = () => {
   return (
     <>
-      <div className='flex flex-col items-center overflow-x-scroll'>
-        <h1 className={styles.title}>
-          Actividad del Senado
-        </h1>
-
+      <h1 className={styles.title}>
+        Actividad del Senado
+      </h1>
+      <div className='flex flex-col items-start overflow-x-scroll p-8'>
         <div className={styles.cardContainer}>
           {block.map((block, index) => (
             <CardBlockChain

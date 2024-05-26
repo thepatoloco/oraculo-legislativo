@@ -13,17 +13,17 @@ const CardBlockChain = ({ title, documentURL, hash, date, previousHash }: CardBl
   return (
     <Card className='w-64 h-96 mt-10'>
       <CardHeader className='flex justify-center'>
-        <p>{title}</p>
+        <strong><p>{title}</p></strong>
       </CardHeader>
       <Divider />
-      <CardBody className='overscroll-none text-center justify-evenly py-8 flex items-center'>
-        <p className='break-normal'>Doc: {documentURL}</p>
+      <CardBody className='overscroll-none text-start justify-evenly py-8 flex items-start'>
+        <p className='break-normal'><strong>Doc:</strong> {documentURL}</p>
         <br />
-        <p style={{ wordBreak: 'break-all' }}>Hash: {hash}</p>
+        <p style={{ wordBreak: 'break-all' }}><strong>Hash:</strong> {hash}</p>
         <br />
-        <p className='break-normal'>Fecha: {date}</p>
+        <p className='break-normal'><strong>Fecha:</strong> {date}</p>
         <br />
-        <p style={{ wordBreak: 'break-all' }}>Hash anterior: {previousHash}</p>
+        <p style={{ wordBreak: 'break-all' }}><strong>Hash anterior:</strong> {previousHash}</p>
       </CardBody>
       <Divider />
     </Card>
