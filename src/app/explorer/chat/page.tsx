@@ -1,8 +1,13 @@
 import React from 'react'
+import ChatComponent from '@/components/chatComponent/ChatComponent';
 
 const ChatPage = () => {
   return (
-    <div>SingleInitiativePage</div>
+    <>
+      {/* se pasa el id que se seleccione en el explorer */}
+      <ChatComponent id={1}/>
+    </>
+    
   )
 }
 
