@@ -5,6 +5,8 @@ import { Container } from 'postcss'
 import { IconArrowLeft } from '@tabler/icons-react';
 import { IconArrowRight } from '@tabler/icons-react';
 import Image from 'next/image';
+import { db } from '@/utils/db';
+import { BlockInfo } from '@/utils/types';
 
 const block = [
   {
@@ -58,7 +60,9 @@ const block = [
   },
 ]
 
-const BlockchainPage = () => {
+const BlockchainPage = async () => {
+  const blocks = await db.block.findMany({ orderBy: { created_at: "desc" } });
+  
   return (
     <>
       <h1 className={styles.title}>
@@ -76,16 +80,14 @@ const BlockchainPage = () => {
       </div>
       <div className='flex flex-col items-start overflow-x-scroll p-8' dir='rtl'>
         <div className={styles.cardContainer}>
-          {block.map((block, index) => (
+          {blocks.map((block, index) => (
             <div dir='ltr' key={index} className='flex items-center'>
-              <Image src="/chain.png" alt="Cadena" width={50} height={30} />
+              <Image src="/chain.png" alt="Cadena" width={50} height={30} className={index < blocks.length - 1 ? '' : 'opacity-0'} />
               <CardBlockChain
                 key={index}
-                title={block.title}
-                documentURL={block.DocumentURL}
                 hash={block.hash}
-                date={block.date}
-                previousHash={block.previousHash} />
+                block_data={block.data as any}
+              />
             </div>
 
           ))}

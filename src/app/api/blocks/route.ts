@@ -2,62 +2,50 @@ import { executeAsyncFunction } from "@/utils/function_exec";
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import pdf from "pdf-parse/lib/pdf-parse";
-import fetch from "node-fetch";
 import { db } from "@/utils/db";
 import { z } from "zod";
 import { BlockInfo } from "@/utils/types";
 
 type PostRequest = {
   date: Date;
-} & (
-  | {
-      type: "initiative";
-      file_url: string;
-    }
-  | {
-      type: "vote";
-      content: string;
-      file_hash: string;
-    }
-);
-/*type PostRequest = {
-  type: "initiative" | "vote";
-  file_url?: string;
-  content?: string;
-  file_hash?: string;
-  date: Date;
-};*/
-const PostSchema = z
-  .object({
-    type: z.enum(["initiative", "vote"]),
-    date: z.coerce.date(),
-    file_url: z.string().url().optional(),
-    content: z.string().min(1).optional(),
-    file_hash: z.string().optional(),
-  })
-  .superRefine((arg, ctx) => {
-    switch (arg.type) {
-      case "initiative":
-        if (!arg.file_url)
-          ctx.addIssue({
-            params: ["file_url"],
-            code: z.ZodIssueCode.custom,
-          });
-        break;
-      case "vote":
-        if (!arg.content)
-          ctx.addIssue({
-            params: ["content"],
-            code: z.ZodIssueCode.custom,
-          });
-        if (!arg.file_hash)
-          ctx.addIssue({
-            params: ["file_hash"],
-            code: z.ZodIssueCode.custom,
-          });
-        break;
-    }
-  });
+} & ({
+  type: "initiative";
+  file_url: string;
+} | {
+  type: "vote";
+  content: string;
+  file_hash: string;
+});
+const PostSchema = z.object({
+  type: z.enum(["initiative", "vote"]),
+  date: z.coerce.date(),
+  file_url: z.string().url().optional(),
+  content: z.string().min(1).optional(),
+  file_hash: z.string().optional(),
+})
+.superRefine((arg, ctx) => {
+  switch (arg.type) {
+    case "initiative":
+      if (!arg.file_url)
+        ctx.addIssue({
+          params: ["file_url"],
+          code: z.ZodIssueCode.custom,
+        });
+      break;
+    case "vote":
+      if (!arg.content)
+        ctx.addIssue({
+          params: ["content"],
+          code: z.ZodIssueCode.custom,
+        });
+      if (!arg.file_hash)
+        ctx.addIssue({
+          params: ["file_hash"],
+          code: z.ZodIssueCode.custom,
+        });
+      break;
+  }
+});
 
 export async function POST(request: NextRequest) {
   // Get request data
